@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Node.js Website Builder</title>
+    <style>
+      body { font-family: Inter, Arial, sans-serif; margin: 0; background: #f4f8ff; color: #0b1220; }
+      main { max-width: 900px; margin: 2rem auto; background: #fff; border-radius: 12px; padding: 1.5rem; box-shadow: 0 8px 30px rgba(15,23,42,0.12); }
+      textarea, select { width: 100%; padding: .75rem; margin-top: .5rem; margin-bottom: 1rem; }
+      button { border: 0; background: #2563eb; color: #fff; padding: .7rem 1rem; border-radius: 8px; cursor: pointer; }
+      pre { background: #0f172a; color: #f8fafc; padding: .75rem; border-radius: 8px; white-space: pre-wrap; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>AI Node.js Website Builder</h1>
+      <p>Enter a prompt to generate a website and run it on <strong>http://localhost</strong>.</p>
+
+      <label for="provider">AI provider</label>
+      <select id="provider"></select>
+
+      <label for="prompt">Website prompt</label>
+      <textarea id="prompt" rows="5">Build a one-page portfolio website with hero, skills, and contact sections.</textarea>
+
+      <button id="build">Build Website</button>
+
+      <h2>Status</h2>
+      <pre id="status">Idle</pre>
+
+      <p>Open generated site: <a href="/" target="_blank" rel="noopener">http://localhost</a></p>
+    </main>
+
+    <script>
+      const providerSelect = document.getElementById('provider');
+      const statusBox = document.getElementById('status');
+
+      async function loadProviders() {
+        const response = await fetch('/api/providers');
+        const data = await response.json();
+
+        data.providers.forEach((provider) => {
+          const option = document.createElement('option');
+          option.value = provider.id;
+          option.textContent = `${provider.name} (${provider.keyConfigured ? 'key ready' : 'no key'})`;
+          providerSelect.appendChild(option);
+        });
+      }
+
+      document.getElementById('build').addEventListener('click', async () => {
+        statusBox.textContent = 'Building website...';
+        const prompt = document.getElementById('prompt').value;
+        const providerId = providerSelect.value;
+
+        const response = await fetch('/api/build-site', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ prompt, providerId })
+        });
+
+        const data = await response.json();
+        statusBox.textContent = JSON.stringify(data, null, 2);
+      });
+
+      loadProviders();
+    </script>
+  </body>
+</html>

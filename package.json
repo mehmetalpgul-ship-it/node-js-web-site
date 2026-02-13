@@ -1,0 +1,23 @@
+{
+  "name": "node-js-web-site-ai-builder",
+  "version": "1.0.0",
+  "description": "Node.js website that uses AI to generate and run a website on localhost",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "check": "node --check server.js"
+  },
+  "keywords": [
+    "nodejs",
+    "express",
+    "ai",
+    "website-builder"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2"
+  }
+}

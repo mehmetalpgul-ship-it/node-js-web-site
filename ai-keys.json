@@ -1,0 +1,25 @@
+{
+  "providers": [
+    {
+      "id": "openai",
+      "name": "OpenAI",
+      "apiKeyEnv": "OPENAI_API_KEY",
+      "endpoint": "https://api.openai.com/v1/responses",
+      "model": "gpt-4.1-mini"
+    },
+    {
+      "id": "anthropic",
+      "name": "Anthropic",
+      "apiKeyEnv": "ANTHROPIC_API_KEY",
+      "endpoint": "https://api.anthropic.com/v1/messages",
+      "model": "claude-3-5-haiku-latest"
+    },
+    {
+      "id": "gemini",
+      "name": "Google Gemini",
+      "apiKeyEnv": "GEMINI_API_KEY",
+      "endpoint": "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent",
+      "model": "gemini-1.5-flash"
+    }
+  ]
+}
